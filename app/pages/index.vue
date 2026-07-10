@@ -259,6 +259,7 @@ function onAcademyChange(name) {
   }
   .map-wrapper {
     flex: 1;
+    min-height: 200px;
   }
   .detail-wrapper {
     flex: none;

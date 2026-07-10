@@ -1,5 +1,7 @@
 <template>
-  <div id="map"></div>
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
 </template>
 
 <script setup>
@@ -109,10 +111,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#map {
+.map-container {
   position: absolute;
   inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+#map {
+  flex: 1;
   width: 100%;
-  height: 100%;
 }
 </style>
