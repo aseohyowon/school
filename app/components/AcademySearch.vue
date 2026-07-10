@@ -132,4 +132,30 @@ function onReset() {
 .result-count strong {
   color: #4f46e5;
 }
+
+@media (max-width: 768px) {
+  .search-bar {
+    padding: 10px 12px;
+  }
+  .search-row {
+    gap: 6px;
+  }
+  .select-box {
+    min-width: 0;
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 7px 24px 7px 8px;
+  }
+  .academy-select {
+    min-width: 0;
+  }
+  .reset-btn {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+  .result-count {
+    font-size: 0.72rem;
+    margin-top: 6px;
+  }
+}
 </style>

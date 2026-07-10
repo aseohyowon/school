@@ -139,6 +139,7 @@ function onAcademyChange(name) {
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 .hero {
@@ -233,5 +234,37 @@ function onAcademyChange(name) {
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 12px 16px;
+  }
+  .hero-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .hero-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .hero-title {
+    font-size: 1.15rem;
+  }
+  .hero-subtitle {
+    display: none;
+  }
+  .content {
+    flex-direction: column;
+  }
+  .map-wrapper {
+    flex: 1;
+  }
+  .detail-wrapper {
+    flex: none;
+    max-height: 38vh;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  }
 }
 </style>
