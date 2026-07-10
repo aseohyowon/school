@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
-      kakaoMapKey: '',
+      kakaoMapKey: process.env.KAKAO_MAP_KEY || process.env.NUXT_PUBLIC_KAKAO_MAP_KEY || '',
     }
   }
 })

@@ -12,7 +12,7 @@ const config = useRuntimeConfig()
 const academyStore = useAcademyStore()
 let map = null
 let clusterer = null
-let sdkLoaded = false
+let pending = false
 
 function getCenterLatLng() {
   if (props.center && props.center.lat && props.center.lng) {
@@ -32,10 +32,14 @@ function initMap() {
     level: 7
   })
   createClusterer()
+  pending = false
 }
 
 function createClusterer() {
-  if (!map) return
+  if (!map) {
+    pending = true
+    return
+  }
   if (clusterer) {
     clusterer.clear()
   }
@@ -76,7 +80,7 @@ function loadKakaoSDK() {
   script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=clusterer&autoload=false`
   script.onload = () => {
     window.kakao.maps.load(() => {
-      sdkLoaded = true
+      pending = true
       initMap()
     })
   }
@@ -96,7 +100,7 @@ watch(() => props.center, () => {
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
-    sdkLoaded = true
+    pending = true
     initMap()
   } else {
     loadKakaoSDK()
