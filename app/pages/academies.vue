@@ -1,5 +1,21 @@
 <template>
   <div class="page-layout">
+    <header class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <div class="hero-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-main">학원</span>
+          <span class="hero-accent">어디있어?</span>
+        </h1>
+        <p class="hero-subtitle">경기도 모든 학원을 한눈에 검색하고 지도로 확인하세요</p>
+      </div>
+    </header>
     <AcademySearch
       :cities="cities"
       :districts="districts"
@@ -124,6 +140,58 @@ function onAcademyChange(name) {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+}
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+  padding: 20px 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+}
+.hero-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  flex-shrink: 0;
+}
+.hero-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-main {
+  color: rgba(255,255,255,0.95);
+}
+.hero-accent {
+  color: #fde047;
+  font-style: italic;
+}
+.hero-subtitle {
+  margin: 0 0 0 auto;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
 }
 .content {
   display: flex;
