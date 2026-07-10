@@ -1,7 +1,5 @@
 <template>
-  <div class="map-container">
-    <div id="map"></div>
-  </div>
+  <div id="map"></div>
 </template>
 
 <script setup>
@@ -75,16 +73,22 @@ function moveCenter() {
 function loadKakaoSDK() {
   const key = config.public.kakaoMapKey
   if (!key) {
-    console.error('Kakao Map key is not configured')
+    console.error('[AcademyMap] Kakao Map key is empty. Check .env or NUXT_PUBLIC_KAKAO_MAP_KEY')
     return
   }
+  console.log('[AcademyMap] Loading Kakao SDK...')
   const script = document.createElement('script')
   script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=clusterer&autoload=false`
   script.onload = () => {
+    console.log('[AcademyMap] Kakao SDK loaded')
     window.kakao.maps.load(() => {
+      console.log('[AcademyMap] Kakao maps ready')
       pending = true
       initMap()
     })
+  }
+  script.onerror = () => {
+    console.error('[AcademyMap] Failed to load Kakao SDK. Check domain whitelist and network.')
   }
   document.head.appendChild(script)
 }
@@ -111,14 +115,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.map-container {
+#map {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-}
-#map {
-  flex: 1;
   width: 100%;
+  height: 100%;
 }
 </style>
