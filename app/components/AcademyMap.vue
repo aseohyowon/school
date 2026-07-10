@@ -8,9 +8,11 @@ const props = defineProps({
   center: { type: Object, default: null },
 })
 
+const config = useRuntimeConfig()
 const academyStore = useAcademyStore()
 let map = null
 let clusterer = null
+let sdkLoaded = false
 
 function getCenterLatLng() {
   if (props.center && props.center.lat && props.center.lng) {
@@ -22,7 +24,6 @@ function getCenterLatLng() {
 function initMap() {
   const container = document.getElementById('map')
   if (!container || container.offsetHeight === 0) {
-    // Container not ready yet, retry in nextTick
     requestAnimationFrame(() => initMap())
     return
   }
@@ -65,6 +66,23 @@ function moveCenter() {
   map.setCenter(cl)
 }
 
+function loadKakaoSDK() {
+  const key = config.public.kakaoMapKey
+  if (!key) {
+    console.error('Kakao Map key is not configured')
+    return
+  }
+  const script = document.createElement('script')
+  script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${key}&libraries=clusterer&autoload=false`
+  script.onload = () => {
+    window.kakao.maps.load(() => {
+      sdkLoaded = true
+      initMap()
+    })
+  }
+  document.head.appendChild(script)
+}
+
 watch(() => props.academies, () => {
   if (map) {
     createClusterer()
@@ -78,14 +96,10 @@ watch(() => props.center, () => {
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
+    sdkLoaded = true
     initMap()
   } else {
-    const check = setInterval(() => {
-      if (window.kakao && window.kakao.maps) {
-        clearInterval(check)
-        initMap()
-      }
-    }, 200)
+    loadKakaoSDK()
   }
 })
 </script>
