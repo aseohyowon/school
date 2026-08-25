@@ -18,9 +18,6 @@
         <option v-for="a in academyNames" :key="a" :value="a">{{ a }}</option>
       </select>
       <button class="reset-btn" @click="onReset">초기화</button>
-      <div class="ad-slot-inline">
-        <div id="cpAdsSearch"></div>
-      </div>
     </div>
     <div class="result-count">총 <strong>{{ filteredCount }}</strong>개 학원 표시 중</div>
   </div>
@@ -40,24 +37,6 @@ const localCity = ref('')
 const localDistrict = ref('')
 const localDong = ref('')
 const localAcademy = ref('')
-
-onMounted(() => {
-  const tryLoadAd = () => {
-    if (typeof PartnersCoupang !== 'undefined') {
-      new PartnersCoupang.G({
-        id: 1021868,
-        trackingCode: 'AF2633857',
-        subId: null,
-        template: 'carousel',
-        width: '680',
-        height: '140'
-      })
-    } else {
-      setTimeout(tryLoadAd, 500)
-    }
-  }
-  tryLoadAd()
-})
 
 function onCityChange() {
   localDistrict.value = ''
@@ -131,11 +110,6 @@ function onReset() {
   min-width: 130px;
   max-width: 180px;
 }
-.ad-slot-inline {
-  flex-shrink: 0;
-  max-width: 300px;
-  overflow: hidden;
-}
 .reset-btn {
   padding: 8px 16px;
   border: 1.5px solid #e2e8f0;
@@ -175,11 +149,6 @@ function onReset() {
   .academy-select {
     min-width: 0;
     max-width: none;
-  }
-  .ad-slot-inline {
-    width: 100%;
-    max-width: none;
-    margin-top: 4px;
   }
   .reset-btn {
     padding: 7px 10px;

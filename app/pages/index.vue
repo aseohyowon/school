@@ -27,6 +27,7 @@
       @update:dong="onDongChange"
       @update:academy="onAcademyChange"
     />
+    <div id="cpAdsEa" class="ad-banner"></div>
     <div class="content">
       <div class="map-wrapper">
         <AcademyMap :academies="academies" :center="mapCenter" />
@@ -75,6 +76,22 @@ onMounted(async () => {
   if (academies.value.length > 0) {
     mapCenter.value = getCenter()
   }
+
+  const tryLoadAd = () => {
+    if (typeof PartnersCoupang !== 'undefined') {
+      new PartnersCoupang.G({
+        id: 1021868,
+        trackingCode: 'AF2633857',
+        subId: null,
+        template: 'carousel',
+        width: '680',
+        height: '140'
+      })
+    } else {
+      setTimeout(tryLoadAd, 500)
+    }
+  }
+  tryLoadAd()
 })
 
 function onCityChange(city) {
@@ -199,6 +216,13 @@ function onAcademyChange(name) {
   font-size: 0.82rem;
   color: rgba(255,255,255,0.7);
   white-space: nowrap;
+}
+.ad-banner {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  overflow: hidden;
 }
 .content {
   display: flex;
