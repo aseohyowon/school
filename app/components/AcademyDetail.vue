@@ -27,6 +27,9 @@
         </div>
       </div>
     </div>
+    <div class="ad-slot-detail">
+      <div id="cpAdsDetail"></div>
+    </div>
   </div>
   <div v-else class="empty-state">
     <div class="empty-icon">📍</div>
@@ -37,6 +40,27 @@
 <script setup>
 const academyStore = useAcademyStore()
 const selectedAcademy = computed(() => academyStore.selectedAcademy)
+
+let detailAdLoaded = false
+watch(selectedAcademy, () => {
+  if (!selectedAcademy.value || detailAdLoaded) return
+  detailAdLoaded = true
+  const tryLoadAd = () => {
+    if (typeof PartnersCoupang !== 'undefined') {
+      new PartnersCoupang.G({
+        id: 1021868,
+        trackingCode: 'AF2633857',
+        subId: null,
+        template: 'carousel',
+        width: '680',
+        height: '140'
+      })
+    } else {
+      setTimeout(tryLoadAd, 500)
+    }
+  }
+  nextTick(() => tryLoadAd())
+})
 </script>
 
 <style scoped>
@@ -110,5 +134,10 @@ const selectedAcademy = computed(() => academyStore.selectedAcademy)
   color: #a0aec0;
   font-size: 0.95rem;
   line-height: 1.6;
+}
+.ad-slot-detail {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px 16px;
 }
 </style>

@@ -16,9 +16,6 @@
         <p class="hero-subtitle">경기도 모든 학원을 한눈에 검색하고 지도로 확인하세요</p>
       </div>
     </header>
-    <div class="ad-banner">
-      <div id="cpAdsEa"></div>
-    </div>
     <AcademySearch
       :cities="cities"
       :districts="districts"
@@ -46,6 +43,12 @@
 </template>
 
 <script setup>
+useHead({
+  script: [
+    { src: 'https://ads-partners.coupang.com/g.js', defer: true }
+  ]
+})
+
 const {
   academies,
   loading,
@@ -67,28 +70,11 @@ const selectedDistrict = ref('')
 const selectedDong = ref('')
 const selectedAcademy = ref('')
 
-  onMounted(async () => {
+onMounted(async () => {
   await init()
   if (academies.value.length > 0) {
     mapCenter.value = getCenter()
   }
-
-  // Coupang Ads
-  const cpm = document.createElement('script')
-  cpm.src = 'https://ads-partners.coupang.com/g.js'
-  cpm.onload = () => {
-    if (typeof PartnersCoupang !== 'undefined') {
-      new PartnersCoupang.G({
-        id: 1021868,
-        trackingCode: 'AF2633857',
-        subId: null,
-        template: 'carousel',
-        width: '680',
-        height: '140'
-      })
-    }
-  }
-  document.head.appendChild(cpm)
 })
 
 function onCityChange(city) {
